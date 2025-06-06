@@ -2,12 +2,15 @@ import axios from "axios";
 import type { IBoard } from "../../shared/types.ts";
 import { API_ENDPOINTS } from "../../shared/endpoints.ts";
 import { useQuery } from "@tanstack/react-query";
+import { useAppDispatch } from "../../shared/store/hooks/redux.ts";
+import { useEffect } from "react";
+import { setBoards } from "../../shared/store/slices/boardsSlice.ts";
 
 interface BoardListResponse {
     data: IBoard[];
 }
 
-const UseBoardList = () => {
+const useBoardList = () => {
     const getBoards = async () => {
         const response = await axios.get<BoardListResponse>(
             API_ENDPOINTS.GET_BOARDS,
@@ -25,6 +28,11 @@ const UseBoardList = () => {
         queryFn: getBoards,
     });
 
+    const dispatch = useAppDispatch();
+    useEffect(() => {
+        dispatch(setBoards(boards ?? []));
+    }, [dispatch, boards]);
+
     return {
         data: {
             boards,
@@ -36,4 +44,4 @@ const UseBoardList = () => {
     };
 };
 
-export default UseBoardList;
+export default useBoardList;

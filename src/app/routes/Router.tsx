@@ -6,14 +6,9 @@ import {
     Navigate,
 } from "react-router-dom";
 import Board from "../../pages/Board/Board.tsx";
+import { ROUTES } from "../../shared/routes.ts";
 
-const ROUTES = {
-    TASKS: "/issues",
-    BOARDS: "/boards",
-    BOARD: "/board/:id",
-};
-
-const Routes = () => {
+const Router = () => {
     const routes = [
         {
             path: ROUTES.TASKS,
@@ -38,4 +33,4 @@ const Routes = () => {
     return <RouterProvider router={router} />;
 };
 
-export default Routes;
+export default Router;

@@ -1,5 +1,5 @@
-type TStatus = "Low" | "Medium" | "High";
-type TPriority = "Backlog" | "InProgress" | "Done";
+type TStatus = "Backlog" | "InProgress" | "Done";
+type TPriority = "Low" | "Medium" | "High";
 
 export interface IUser {
     id: number;
@@ -24,4 +24,10 @@ export interface IBoard {
     name: string;
     description: string;
     taskCount: number;
+}
+
+export interface IFilters {
+    status: TStatus[];
+    boardId: number[];
+    search: string;
 }
