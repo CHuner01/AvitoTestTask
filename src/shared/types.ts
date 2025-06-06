@@ -1,7 +1,7 @@
 type TStatus = "Low" | "Medium" | "High";
 type TPriority = "Backlog" | "InProgress" | "Done";
 
-export interface IAssignee {
+export interface IUser {
     id: number;
     email: string;
     fullName: string;
@@ -16,7 +16,7 @@ export interface ITaskResponse {
     description: string;
     status: TStatus;
     priority: TPriority;
-    assignee: IAssignee;
+    assignee: IUser;
 }
 
 export interface IBoard {
