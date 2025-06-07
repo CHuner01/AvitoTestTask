@@ -3,6 +3,9 @@ import { z } from "zod";
 export type TStatus = "Backlog" | "InProgress" | "Done";
 export type TPriority = "Low" | "Medium" | "High";
 
+export const statuses = ["Backlog", "InProgress", "Done"];
+export const priorities = ["Low", "Medium", "High"];
+
 export interface IUser {
     id: number;
     email: string;
@@ -37,4 +40,9 @@ export interface IBoard {
     name: string;
     description: string;
     taskCount: number;
+}
+
+export interface IFilters {
+    status: TStatus[];
+    boardId: number[];
 }

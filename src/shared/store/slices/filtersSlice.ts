@@ -1,10 +1,5 @@
-import type { TStatus } from "../../types.ts";
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
-
-interface IFilters {
-    status: TStatus[];
-    boardId: number[];
-}
+import type { IFilters } from "../../types.ts";
 
 const initialState: IFilters = {
     status: [],

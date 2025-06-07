@@ -1,7 +1,12 @@
 import { useForm } from "react-hook-form";
 import { useEffect, useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { taskRequestSchema, type TaskRequestType } from "../../shared/types.ts";
+import {
+    priorities,
+    statuses,
+    taskRequestSchema,
+    type TaskRequestType,
+} from "../../shared/types.ts";
 import type { TaskFormProps } from "./types.ts";
 import { useUsers } from "../../shared/hooks/useUsers.ts";
 import { useBoards } from "../../shared/hooks/useBoards.ts";
@@ -57,8 +62,6 @@ const useTaskForm = ({ isCreating, task }: TaskFormProps) => {
         (isCreating ? createTaskMutation : editTaskMutation).mutate(data);
     };
 
-    const statuses = ["Backlog", "InProgress", "Done"];
-    const priorities = ["Low", "Medium", "High"];
     const { data: users } = useUsers();
     const { data: boards } = useBoards();
 
