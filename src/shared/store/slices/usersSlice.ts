@@ -1,11 +1,11 @@
 import type { IUser } from "../../types.ts";
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 
-interface IInitialState {
+interface IUserSliceInitialState {
     users: IUser[];
 }
 
-const initialState: IInitialState = {
+const initialState: IUserSliceInitialState = {
     users: [],
 };
 const usersSlice = createSlice({

@@ -1,13 +1,11 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
-import taskReducer from "./slices/tasksSlice.ts";
 import boardReducer from "./slices/boardsSlice.ts";
 import usersReducer from "./slices/usersSlice.ts";
 import filtersReducer from "./slices/filtersSlice.ts";
 
 const rootReducer = combineReducers({
-    tasks: taskReducer,
-    boards: boardReducer,
-    users: usersReducer,
+    boardReducer,
+    usersReducer,
     filters: filtersReducer,
 });
 

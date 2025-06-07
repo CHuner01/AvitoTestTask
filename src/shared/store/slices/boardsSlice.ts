@@ -1,11 +1,11 @@
 import type { IBoard } from "../../types.ts";
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 
-interface IInitialState {
+interface IBoardSliceInitialState {
     boards: IBoard[];
 }
 
-const initialState: IInitialState = {
+const initialState: IBoardSliceInitialState = {
     boards: [],
 };
 const boardsSlice = createSlice({

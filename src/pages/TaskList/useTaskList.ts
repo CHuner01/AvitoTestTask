@@ -1,20 +1,11 @@
 import { useQuery } from "@tanstack/react-query";
 import { API_ENDPOINTS } from "../../shared/endpoints.ts";
 import axios from "axios";
-import type { ITaskResponse, IUser } from "../../shared/types.ts";
-import {
-    useAppDispatch,
-    useAppSelector,
-} from "../../shared/store/hooks/redux.ts";
-import { useEffect } from "react";
-import { setUsers } from "../../shared/store/slices/usersSlice.ts";
+import type { ITaskResponse } from "../../shared/types.ts";
+import { useAppSelector } from "../../shared/store/hooks/redux.ts";
 
 interface TaskListResponse {
     data: ITaskResponse[];
-}
-
-interface UserListResponse {
-    data: IUser[];
 }
 
 const useTaskList = () => {
@@ -22,15 +13,6 @@ const useTaskList = () => {
         const response = await axios.get<TaskListResponse>(
             API_ENDPOINTS.GET_TASKS,
         );
-        console.log(response.data.data);
-        return response.data.data;
-    };
-
-    const getUsers = async () => {
-        const response = await axios.get<UserListResponse>(
-            API_ENDPOINTS.GET_USERS,
-        );
-        console.log(response.data.data);
         return response.data.data;
     };
 
@@ -49,8 +31,10 @@ const useTaskList = () => {
 
     const filteredTasks = tasks?.filter(
         (task) =>
-            filters.status.includes(task.status) &&
-            filters.boardId.includes(task.boardId) &&
+            (filters.status.length === 0 ||
+                filters.status.includes(task.status)) &&
+            (filters.boardId.length === 0 ||
+                filters.boardId.includes(task.boardId)) &&
             (!isSetSearch ||
                 task.title
                     .toLowerCase()
@@ -60,16 +44,11 @@ const useTaskList = () => {
                     .includes(filters.search.toLowerCase())),
     );
 
-    const { data: users } = useQuery<IUser[]>({
-        queryKey: ["users"],
-        queryFn: getUsers,
-    });
+    // const dispatch = useAppDispatch();
 
-    const dispatch = useAppDispatch();
-
-    useEffect(() => {
-        dispatch(setUsers(users ?? []));
-    }, [dispatch, users]);
+    // useEffect(() => {
+    //     dispatch(setUsers(users ?? []));
+    // }, [dispatch, users]);
 
     return {
         data: {
