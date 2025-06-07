@@ -1,30 +1,24 @@
 import useBoardList from "./useBoardList.ts";
-import { generatePath, useNavigate } from "react-router-dom";
-import { ROUTES } from "../../shared/routes.ts";
 import Navbar from "../../widgets/Navbar/Navbar.tsx";
+import styles from "./BoardList.module.scss";
+import { Flex } from "@radix-ui/themes";
+import BoardCard from "../../shared/ui/BoardCard/BoardCard.tsx";
 
 const BoardList = () => {
     const { data } = useBoardList();
-    const navigate = useNavigate();
 
     return (
         <>
             <Navbar />
-            {data.boards?.map((board) => (
-                <div key={board.id}>
-                    <p>{board.id}</p>
-                    <p>{board.name}</p>
-                    <button
-                        onClick={() =>
-                            navigate(
-                                generatePath(ROUTES.BOARD, { id: board.id }),
-                            )
-                        }
-                    >
-                        Перейти
-                    </button>
-                </div>
-            ))}
+            <div className={styles.container}>
+                <Flex direction="column" gap="3" mt="3">
+                    {data.boards?.map((board) => (
+                        <div key={board.id}>
+                            <BoardCard board={board} />
+                        </div>
+                    ))}
+                </Flex>
+            </div>
         </>
     );
 };

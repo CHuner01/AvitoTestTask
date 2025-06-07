@@ -3,7 +3,7 @@ import Search from "../../widgets/Search/Search.tsx";
 import FiltersForm from "../../widgets/FiltersForm/FiltersForm.tsx";
 import Navbar from "../../widgets/Navbar/Navbar.tsx";
 import styles from "./TaskList.module.scss";
-import { Flex, Separator } from "@radix-ui/themes";
+import { Flex } from "@radix-ui/themes";
 import Task from "../../shared/ui/Task/Task.tsx";
 
 const TaskList = () => {
@@ -12,7 +12,6 @@ const TaskList = () => {
     return (
         <>
             <Navbar />
-            <Separator size="4" />
             <div className={styles.container}>
                 <Flex justify="between">
                     <Search />

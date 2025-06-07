@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useAppDispatch } from "../../shared/store/hooks/redux.ts";
 import { setSearch } from "../../shared/store/slices/searchSlice.ts";
 
-const delay = 400;
+const delay = 300;
 
 const useSearch = () => {
     const [searchText, setSearchText] = useState("");

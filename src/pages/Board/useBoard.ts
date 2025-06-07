@@ -3,6 +3,7 @@ import { API_ENDPOINTS } from "../../shared/endpoints.ts";
 import { useQuery } from "@tanstack/react-query";
 import type { ITaskResponse } from "../../shared/types.ts";
 import { useParams } from "react-router-dom";
+import { useBoards } from "../../shared/hooks/useBoards.ts";
 
 interface BoardTasksResponse {
     data: ITaskResponse[];
@@ -10,6 +11,10 @@ interface BoardTasksResponse {
 
 const useBoard = () => {
     const { id } = useParams<{ id: string }>();
+
+    const { data: boards } = useBoards();
+
+    const board = boards?.find((board) => String(board.id) === id);
 
     const getBoardTasks = async () => {
         const response = await axios.get<BoardTasksResponse>(
@@ -37,6 +42,7 @@ const useBoard = () => {
     return {
         data: {
             id,
+            board,
             backlogTasks,
             inProgressTasks,
             doneTasks,

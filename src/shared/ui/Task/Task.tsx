@@ -5,11 +5,16 @@ import styles from "./Task.module.scss";
 
 interface TaskProps {
     task: ITaskResponse;
+    direction?: "column" | "row";
 }
 
-const Task = ({ task }: TaskProps) => {
+const Task = ({ task, direction = "row" }: TaskProps) => {
     return (
-        <div className={styles.container}>
+        <Flex
+            className={`${styles.container} ${direction === "row" ? styles.row : styles.column}`}
+            justify="between"
+            maxWidth={direction === "column" ? "320px" : "100%"}
+        >
             <Flex
                 direction="row"
                 align="center"
@@ -46,7 +51,7 @@ const Task = ({ task }: TaskProps) => {
                 </Flex>
                 <TaskForm isCreating={false} task={task} onBoard={false} />
             </Flex>
-        </div>
+        </Flex>
     );
 };
 
