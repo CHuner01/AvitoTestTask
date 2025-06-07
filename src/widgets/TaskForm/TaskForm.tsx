@@ -17,7 +17,7 @@ import { generatePath, useNavigate } from "react-router-dom";
 import { ROUTES } from "../../shared/routes.ts";
 import { Pencil1Icon } from "@radix-ui/react-icons";
 
-const TaskForm = ({ isCreating, task, onBoard }: TaskFormProps) => {
+const TaskForm = ({ isCreating, task }: TaskFormProps) => {
     const navigate = useNavigate();
     const { data, state, functions } = useTaskForm({
         isCreating,
@@ -83,7 +83,10 @@ const TaskForm = ({ isCreating, task, onBoard }: TaskFormProps) => {
                                 {data.boards && (
                                     <BoardSelect
                                         boards={data.boards}
-                                        isDisabled={!isCreating}
+                                        isDisabled={
+                                            !isCreating ||
+                                            (isCreating && state.onBoard)
+                                        }
                                     />
                                 )}
                             </Label>
@@ -109,7 +112,7 @@ const TaskForm = ({ isCreating, task, onBoard }: TaskFormProps) => {
 
                         <Flex gap="3" mt="4" justify="between">
                             <Flex>
-                                {task && !onBoard && (
+                                {task && !state.onBoard && (
                                     <Button
                                         type="button"
                                         variant="soft"
@@ -131,7 +134,10 @@ const TaskForm = ({ isCreating, task, onBoard }: TaskFormProps) => {
                                         Отмена
                                     </Button>
                                 </Dialog.Close>
-                                <Button type="submit" disabled={false}>
+                                <Button
+                                    type="submit"
+                                    disabled={state.isPending}
+                                >
                                     {isCreating ? "Создать" : "Обновить"}
                                 </Button>
                             </Flex>

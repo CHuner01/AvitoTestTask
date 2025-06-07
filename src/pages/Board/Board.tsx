@@ -3,12 +3,29 @@ import Navbar from "../../widgets/Navbar/Navbar.tsx";
 import styles from "./Board.module.scss";
 import { Flex, Text } from "@radix-ui/themes";
 import Task from "../../shared/ui/Task/Task.tsx";
+import LoadingPage from "../../widgets/LoadingPage/LoadingPage.tsx";
+import ErrorPage from "../../widgets/ErrorPage/ErrorPage.tsx";
 
 const Board = () => {
     const { data, state } = useBoard();
 
+    if (state.isLoading) {
+        return <LoadingPage />;
+    }
+
     if (state.isError) {
-        return <p>Ошибка</p>;
+        return <ErrorPage />;
+    }
+
+    if (!data.board) {
+        return (
+            <>
+                <Navbar />
+                <div className={styles.center}>
+                    <Text size="4">Кажется, такого проекта нет</Text>
+                </div>
+            </>
+        );
     }
 
     return (
@@ -24,7 +41,9 @@ const Board = () => {
                             Backlog
                         </Text>
                         {data.backlogTasks?.map((task) => (
-                            <Task task={task} direction="column" />
+                            <div key={task.id}>
+                                <Task task={task} direction="column" />
+                            </div>
                         ))}
                     </Flex>
                     <Flex direction="column" gap="4">
@@ -32,7 +51,9 @@ const Board = () => {
                             In Progress
                         </Text>
                         {data.inProgressTasks?.map((task) => (
-                            <Task task={task} direction="column" />
+                            <div key={task.id}>
+                                <Task task={task} direction="column" />
+                            </div>
                         ))}
                     </Flex>
                     <Flex direction="column" gap="4">
@@ -40,7 +61,9 @@ const Board = () => {
                             Done
                         </Text>
                         {data.doneTasks?.map((task) => (
-                            <Task task={task} direction="column" />
+                            <div key={task.id}>
+                                <Task task={task} direction="column" />
+                            </div>
                         ))}
                     </Flex>
                 </div>

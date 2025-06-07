@@ -20,7 +20,6 @@ const useBoard = () => {
         const response = await axios.get<BoardTasksResponse>(
             `${API_ENDPOINTS.GET_BOARD_TASKS}/${id}`,
         );
-        console.log(response.data.data);
         return response.data.data;
     };
 

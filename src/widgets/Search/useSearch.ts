@@ -12,7 +12,6 @@ const useSearch = () => {
     useEffect(() => {
         const handler = setTimeout(() => {
             dispatch(setSearch(searchText));
-            console.log(searchText);
         }, delay);
 
         return () => {

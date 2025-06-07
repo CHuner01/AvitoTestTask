@@ -12,18 +12,24 @@ import { useUsers } from "../../shared/hooks/useUsers.ts";
 import { useBoards } from "../../shared/hooks/useBoards.ts";
 import { useCreateTaskMutation } from "../../shared/hooks/useCreateTaskMutation.ts";
 import { useEditTaskMutation } from "../../shared/hooks/useEditTaskMutation.ts";
-
-const FormDefaultValues: TaskRequestType = {
-    title: "",
-    description: "",
-    boardId: 0,
-    assigneeId: 0,
-    status: "Backlog",
-    priority: "Low",
-};
+import { useParams } from "react-router-dom";
+import { useQueryClient } from "@tanstack/react-query";
 
 const useTaskForm = ({ isCreating, task }: TaskFormProps) => {
     const [open, setOpen] = useState(false);
+    const { id } = useParams<{ id: string }>();
+    const queryClient = useQueryClient();
+
+    const onBoard = !!id;
+
+    const FormDefaultValues: TaskRequestType = {
+        title: "",
+        description: "",
+        boardId: onBoard ? Number(id) : task?.boardId ? task?.boardId : 0,
+        assigneeId: 0,
+        status: "Backlog",
+        priority: "Low",
+    };
 
     const form = useForm<TaskRequestType>({
         resolver: zodResolver(taskRequestSchema),
@@ -33,6 +39,11 @@ const useTaskForm = ({ isCreating, task }: TaskFormProps) => {
             : {
                   ...task,
                   assigneeId: task?.assignee.id,
+                  boardId: onBoard
+                      ? Number(id)
+                      : task?.boardId
+                        ? task?.boardId
+                        : 0,
               },
     });
 
@@ -41,6 +52,11 @@ const useTaskForm = ({ isCreating, task }: TaskFormProps) => {
             form.reset({
                 ...task,
                 assigneeId: task.assignee.id,
+                boardId: onBoard
+                    ? Number(id)
+                    : task?.boardId
+                      ? task?.boardId
+                      : 0,
             });
         } else {
             form.reset(FormDefaultValues);
@@ -48,10 +64,18 @@ const useTaskForm = ({ isCreating, task }: TaskFormProps) => {
     }, [open, isCreating, task, form]);
 
     const createTaskMutation = useCreateTaskMutation({
-        onSuccessCallback: () => setOpen(false),
+        onSuccessCallback: () => {
+            queryClient.invalidateQueries({
+                queryKey: [onBoard ? "boardTasks" : "tasks"],
+            });
+            setOpen(false);
+        },
     });
     const editTaskMutation = useEditTaskMutation({
         onSuccessCallback: () => {
+            queryClient.invalidateQueries({
+                queryKey: [onBoard ? "boardTasks" : "tasks"],
+            });
             setOpen(false);
         },
         taskId: task?.id,
@@ -65,6 +89,10 @@ const useTaskForm = ({ isCreating, task }: TaskFormProps) => {
     const { data: users } = useUsers();
     const { data: boards } = useBoards();
 
+    const isPending: boolean = isCreating
+        ? createTaskMutation.isPending
+        : editTaskMutation.isPending;
+
     return {
         data: {
             boards,
@@ -76,6 +104,8 @@ const useTaskForm = ({ isCreating, task }: TaskFormProps) => {
             form,
             open,
             setOpen,
+            isPending,
+            onBoard,
         },
         functions: {
             onSubmit,

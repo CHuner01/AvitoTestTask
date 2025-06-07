@@ -42,7 +42,6 @@ const useTaskList = () => {
                     .toLowerCase()
                     .includes(search.toLowerCase())),
     );
-    console.log(filteredTasks);
 
     return {
         data: {

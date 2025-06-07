@@ -5,9 +5,19 @@ import Navbar from "../../widgets/Navbar/Navbar.tsx";
 import styles from "./TaskList.module.scss";
 import { Flex } from "@radix-ui/themes";
 import Task from "../../shared/ui/Task/Task.tsx";
+import LoadingPage from "../../widgets/LoadingPage/LoadingPage.tsx";
+import ErrorPage from "../../widgets/ErrorPage/ErrorPage.tsx";
 
 const TaskList = () => {
-    const { data } = useTaskList();
+    const { data, state } = useTaskList();
+
+    if (state.isLoading) {
+        return <LoadingPage />;
+    }
+
+    if (state.isError) {
+        return <ErrorPage />;
+    }
 
     return (
         <>

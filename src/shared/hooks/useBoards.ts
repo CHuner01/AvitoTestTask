@@ -11,7 +11,6 @@ const getBoards = async () => {
     const response = await axios.get<BoardListResponse>(
         API_ENDPOINTS.GET_BOARDS,
     );
-    console.log(response.data.data);
     return response.data.data;
 };
 
