@@ -1,29 +1,32 @@
 import useTaskList from "./useTaskList.ts";
-import TaskForm from "../../widgets/TaskForm/TaskForm.tsx";
 import Search from "../../widgets/Search/Search.tsx";
 import FiltersForm from "../../widgets/FiltersForm/FiltersForm.tsx";
+import Navbar from "../../widgets/Navbar/Navbar.tsx";
+import styles from "./TaskList.module.scss";
+import { Flex, Separator } from "@radix-ui/themes";
+import Task from "../../shared/ui/Task/Task.tsx";
 
 const TaskList = () => {
     const { data } = useTaskList();
 
     return (
         <>
-            <Search />
-            <FiltersForm />
-            <TaskForm isCreating={true} />
-            {data.filteredTasks &&
-                data.filteredTasks.map((task) => (
-                    <div key={task.id}>
-                        <TaskForm
-                            isCreating={false}
-                            task={task}
-                            onBoard={false}
-                        />
-                        <p>{task.title}</p>
-                        <p>{task.status}</p>
-                        <p>{task.priority}</p>
-                    </div>
-                ))}
+            <Navbar />
+            <Separator size="4" />
+            <div className={styles.container}>
+                <Flex justify="between">
+                    <Search />
+                    <FiltersForm />
+                </Flex>
+                <Flex direction="column" gap="3" mt="3">
+                    {data.filteredTasks &&
+                        data.filteredTasks.map((task) => (
+                            <div key={task.id}>
+                                <Task task={task} />
+                            </div>
+                        ))}
+                </Flex>
+            </div>
         </>
     );
 };

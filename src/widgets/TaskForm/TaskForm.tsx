@@ -1,4 +1,11 @@
-import { Button, Dialog, Flex, TextField, TextArea } from "@radix-ui/themes";
+import {
+    Button,
+    Dialog,
+    Flex,
+    TextField,
+    TextArea,
+    IconButton,
+} from "@radix-ui/themes";
 import useTaskForm from "./useTaskForm.ts";
 import { FormProvider } from "react-hook-form";
 import BoardSelect from "../../shared/ui/BoardSelect/BoardSelect.tsx";
@@ -8,6 +15,7 @@ import type { TaskFormProps } from "./types.ts";
 import Label from "../../shared/ui/Label/Label.tsx";
 import { generatePath, useNavigate } from "react-router-dom";
 import { ROUTES } from "../../shared/routes.ts";
+import { Pencil1Icon } from "@radix-ui/react-icons";
 
 const TaskForm = ({ isCreating, task, onBoard }: TaskFormProps) => {
     const navigate = useNavigate();
@@ -25,9 +33,13 @@ const TaskForm = ({ isCreating, task, onBoard }: TaskFormProps) => {
                 }}
             >
                 <Dialog.Trigger>
-                    <Button>
-                        {isCreating ? "Создать задачу" : "Редактировать"}
-                    </Button>
+                    {isCreating ? (
+                        <Button>Создать задачу</Button>
+                    ) : (
+                        <IconButton radius="large" variant="soft">
+                            <Pencil1Icon width="18" height="18" />
+                        </IconButton>
+                    )}
                 </Dialog.Trigger>
 
                 <Dialog.Content maxWidth="450px">

@@ -1,0 +1,20 @@
+.container {
+  border: 1px solid lightgray;
+  border-radius: 15px;
+  //box-shadow: 0 0 5px lightgray;
+  padding: 15px 20px;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 10px;
+  @media (max-width: 720px) {
+    flex-direction: column;
+  }
+
+}
+
+.text {
+  font-size: 14px;
+  color: gray;
+}

@@ -1,0 +1,9 @@
+.container {
+  padding: 15px 30px;
+  //border: 1px solid gray
+  @media (max-width: 460px) {
+    padding: 15px 20px;
+  }
+}
+
+

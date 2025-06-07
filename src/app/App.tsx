@@ -4,6 +4,7 @@ import { Provider } from "react-redux";
 import Router from "./router/Router.tsx";
 import "@radix-ui/themes/styles.css";
 import { Theme } from "@radix-ui/themes";
+import "./App.module.scss";
 
 function App() {
     const queryClient = new QueryClient();
