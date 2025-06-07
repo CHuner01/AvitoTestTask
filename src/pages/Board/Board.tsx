@@ -10,7 +10,7 @@ const Board = () => {
     return (
         <>
             <p>Board {data.id}</p>
-            {data.tasks?.map((task) => <p key={task.id}>{task.title}</p>)}
+            {/*{data.tasks?.map((task) => <p key={task.id}>{task.title}</p>)}*/}
         </>
     );
 };

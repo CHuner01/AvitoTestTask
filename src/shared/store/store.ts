@@ -1,12 +1,10 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
-import boardReducer from "./slices/boardsSlice.ts";
-import usersReducer from "./slices/usersSlice.ts";
 import filtersReducer from "./slices/filtersSlice.ts";
+import searchReducer from "./slices/searchSlice.ts";
 
 const rootReducer = combineReducers({
-    boardReducer,
-    usersReducer,
     filters: filtersReducer,
+    searchReducer,
 });
 
 export const setupStore = () => {

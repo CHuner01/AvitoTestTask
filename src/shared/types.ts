@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-type TStatus = "Backlog" | "InProgress" | "Done";
+export type TStatus = "Backlog" | "InProgress" | "Done";
 export type TPriority = "Low" | "Medium" | "High";
 
 export interface IUser {
@@ -37,10 +37,4 @@ export interface IBoard {
     name: string;
     description: string;
     taskCount: number;
-}
-
-export interface IFilters {
-    status: TStatus[];
-    boardId: number[];
-    search: string;
 }

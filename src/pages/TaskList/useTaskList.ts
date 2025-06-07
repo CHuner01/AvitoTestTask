@@ -26,8 +26,9 @@ const useTaskList = () => {
     });
 
     const filters = useAppSelector((state) => state.filters);
+    const search = useAppSelector((state) => state.searchReducer.search);
 
-    const isSetSearch = filters.search.trim().length > 0;
+    const isSetSearch = search.trim().length > 0;
 
     const filteredTasks = tasks?.filter(
         (task) =>
@@ -36,19 +37,12 @@ const useTaskList = () => {
             (filters.boardId.length === 0 ||
                 filters.boardId.includes(task.boardId)) &&
             (!isSetSearch ||
-                task.title
-                    .toLowerCase()
-                    .includes(filters.search.toLowerCase()) ||
+                task.title.toLowerCase().includes(search.toLowerCase()) ||
                 task.assignee.fullName
                     .toLowerCase()
-                    .includes(filters.search.toLowerCase())),
+                    .includes(search.toLowerCase())),
     );
-
-    // const dispatch = useAppDispatch();
-
-    // useEffect(() => {
-    //     dispatch(setUsers(users ?? []));
-    // }, [dispatch, users]);
+    console.log(filteredTasks);
 
     return {
         data: {

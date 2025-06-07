@@ -1,10 +1,14 @@
-import type { IFilters } from "../../types.ts";
+import type { TStatus } from "../../types.ts";
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
+
+interface IFilters {
+    status: TStatus[];
+    boardId: number[];
+}
 
 const initialState: IFilters = {
     status: [],
     boardId: [],
-    search: "",
 };
 
 const filtersSlice = createSlice({
@@ -15,11 +19,8 @@ const filtersSlice = createSlice({
             state.status = action.payload.status;
             state.boardId = action.payload.boardId;
         },
-        setSearch: (state, action: PayloadAction<IFilters>) => {
-            state.search = action.payload.search;
-        },
     },
 });
 
-export const { setFilters, setSearch } = filtersSlice.actions;
+export const { setFilters } = filtersSlice.actions;
 export default filtersSlice.reducer;

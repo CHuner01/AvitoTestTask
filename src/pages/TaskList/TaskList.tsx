@@ -1,11 +1,13 @@
 import useTaskList from "./useTaskList.ts";
 import TaskForm from "../../widgets/TaskForm/TaskForm.tsx";
+import Search from "../../widgets/Search/Search.tsx";
 
 const TaskList = () => {
     const { data } = useTaskList();
 
     return (
         <>
+            <Search />
             <TaskForm isCreating={true} />
             {data.filteredTasks &&
                 data.filteredTasks.map((task) => (
