@@ -1,4 +1,4 @@
-import { useBoards } from "../../shared/hooks/useBoards.ts";
+import { useBoards } from "../../shared/hooks/useBoards";
 import { useEffect } from "react";
 import { useQueryClient } from "@tanstack/react-query";
 

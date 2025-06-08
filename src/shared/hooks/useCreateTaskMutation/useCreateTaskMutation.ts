@@ -1,7 +1,7 @@
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
-import type { TaskRequestType } from "../types.ts";
-import { API_ENDPOINTS } from "../endpoints.ts";
+import type { TaskRequestType } from "../../types.ts";
+import { API_ENDPOINTS } from "../../endpoints.ts";
 
 interface useCreateTaskMutation {
     onSuccessCallback?: () => void;

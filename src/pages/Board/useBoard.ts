@@ -3,7 +3,7 @@ import { API_ENDPOINTS } from "../../shared/endpoints.ts";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import type { ITaskResponse } from "../../shared/types.ts";
 import { useParams } from "react-router-dom";
-import { useBoards } from "../../shared/hooks/useBoards.ts";
+import { useBoards } from "../../shared/hooks/useBoards";
 import { useEffect } from "react";
 
 interface BoardTasksResponse {

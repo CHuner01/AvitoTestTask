@@ -1,5 +1,5 @@
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
-import type { IFilters } from "../../types.ts";
+import type { IFilters } from "../../../types.ts";
 
 const initialState: IFilters = {
     status: [],

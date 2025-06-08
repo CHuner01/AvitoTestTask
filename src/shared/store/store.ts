@@ -1,6 +1,6 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
-import filtersReducer from "./slices/filtersSlice.ts";
-import searchReducer from "./slices/searchSlice.ts";
+import { filtersReducer } from "./slices/filterSlice";
+import { searchReducer } from "./slices/searchSlice";
 
 const rootReducer = combineReducers({
     filters: filtersReducer,

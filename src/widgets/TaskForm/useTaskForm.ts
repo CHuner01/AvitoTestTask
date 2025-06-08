@@ -8,12 +8,12 @@ import {
     type TaskRequestType,
 } from "../../shared/types.ts";
 import type { TaskFormProps } from "./types.ts";
-import { useUsers } from "../../shared/hooks/useUsers.ts";
-import { useBoards } from "../../shared/hooks/useBoards.ts";
-import { useCreateTaskMutation } from "../../shared/hooks/useCreateTaskMutation.ts";
-import { useEditTaskMutation } from "../../shared/hooks/useEditTaskMutation.ts";
+import { useUsers } from "../../shared/hooks/useUsers/useUsers.ts";
+import { useCreateTaskMutation } from "../../shared/hooks/useCreateTaskMutation/useCreateTaskMutation.ts";
+import { useEditTaskMutation } from "../../shared/hooks/useEditTaskMutation/useEditTaskMutation.ts";
 import { useParams } from "react-router-dom";
 import { useQueryClient } from "@tanstack/react-query";
+import { useBoards } from "../../shared/hooks/useBoards/useBoards.ts";
 
 /** Ключ, под которым сохраняется чреновик в local storage */
 const LOCAL_STORAGE_KEY = "form-draft";

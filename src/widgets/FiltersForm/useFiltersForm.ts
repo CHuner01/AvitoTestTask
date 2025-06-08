@@ -1,10 +1,10 @@
 import { useForm } from "react-hook-form";
-import { useBoards } from "../../shared/hooks/useBoards.ts";
+import { useBoards } from "../../shared/hooks/useBoards/useBoards.ts";
 import { type IFilters, statuses } from "../../shared/types.ts";
 import { useAppDispatch } from "../../shared/store/hooks/redux.ts";
 import { useEffect } from "react";
-import { setFilters } from "../../shared/store/slices/filtersSlice.ts";
 import { useQueryClient } from "@tanstack/react-query";
+import { setFilters } from "../../shared/store/slices/filterSlice";
 
 const FormDefaultValues: IFilters = {
     status: [],

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useAppDispatch } from "../../shared/store/hooks/redux.ts";
-import { setSearch } from "../../shared/store/slices/searchSlice.ts";
+import { setSearch } from "../../shared/store/slices/searchSlice";
 
 /** Задержка, после которой текст запишется в стор */
 const delay = 300;
