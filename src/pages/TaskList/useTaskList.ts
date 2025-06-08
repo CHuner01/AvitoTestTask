@@ -1,17 +1,19 @@
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { API_ENDPOINTS } from "../../shared/endpoints.ts";
 import axios from "axios";
 import type { ITaskResponse } from "../../shared/types.ts";
 import { useAppSelector } from "../../shared/store/hooks/redux.ts";
+import { useEffect } from "react";
 
 interface TaskListResponse {
     data: ITaskResponse[];
 }
 
 const useTaskList = () => {
-    const getAllTasks = async () => {
+    const getAllTasks = async ({ signal }: { signal?: AbortSignal }) => {
         const response = await axios.get<TaskListResponse>(
             API_ENDPOINTS.GET_TASKS,
+            { signal },
         );
         return response.data.data;
     };
@@ -22,8 +24,16 @@ const useTaskList = () => {
         isError,
     } = useQuery<ITaskResponse[]>({
         queryKey: ["tasks"],
-        queryFn: getAllTasks,
+        queryFn: ({ signal }) => getAllTasks({ signal }),
     });
+
+    const queryClient = useQueryClient();
+
+    useEffect(() => {
+        return () => {
+            queryClient.cancelQueries({ queryKey: ["tasks"] });
+        };
+    }, [queryClient]);
 
     const filters = useAppSelector((state) => state.filters);
     const search = useAppSelector((state) => state.searchReducer.search);

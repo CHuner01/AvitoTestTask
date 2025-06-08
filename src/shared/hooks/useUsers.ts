@@ -7,14 +7,17 @@ interface UserListResponse {
     data: IUser[];
 }
 
-const getUsers = async () => {
-    const response = await axios.get<UserListResponse>(API_ENDPOINTS.GET_USERS);
+const getUsers = async ({ signal }: { signal?: AbortSignal }) => {
+    const response = await axios.get<UserListResponse>(
+        API_ENDPOINTS.GET_USERS,
+        { signal },
+    );
     return response.data.data;
 };
 
 export const useUsers = () => {
     return useQuery<IUser[]>({
         queryKey: ["users"],
-        queryFn: getUsers,
+        queryFn: ({ signal }) => getUsers({ signal }),
     });
 };

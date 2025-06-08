@@ -14,10 +14,18 @@ export interface IUser {
 }
 
 export const taskRequestSchema = z.object({
-    title: z.string().trim().min(1).max(100),
-    description: z.string().trim().min(1).max(255),
-    boardId: z.coerce.number().min(1),
-    assigneeId: z.coerce.number().min(1),
+    title: z
+        .string()
+        .trim()
+        .min(1, "Обязательное поле")
+        .max(100, "Максимум 100 символов"),
+    description: z
+        .string()
+        .trim()
+        .min(1, "Обязательное поле")
+        .max(255, "Максимум 255 символов"),
+    boardId: z.coerce.number().min(1, "Обязательное поле"),
+    assigneeId: z.coerce.number().min(1, "Обязательное поле"),
     status: z.enum(["Backlog", "InProgress", "Done"]),
     priority: z.enum(["Low", "Medium", "High"]),
 });

@@ -4,6 +4,7 @@ import { type IFilters, statuses } from "../../shared/types.ts";
 import { useAppDispatch } from "../../shared/store/hooks/redux.ts";
 import { useEffect } from "react";
 import { setFilters } from "../../shared/store/slices/filtersSlice.ts";
+import { useQueryClient } from "@tanstack/react-query";
 
 const FormDefaultValues: IFilters = {
     status: [],
@@ -23,6 +24,14 @@ const useFiltersForm = () => {
     }, [formValues, dispatch]);
 
     const { data: boards } = useBoards();
+
+    const queryClient = useQueryClient();
+
+    useEffect(() => {
+        return () => {
+            queryClient.cancelQueries({ queryKey: ["boards"] });
+        };
+    }, [queryClient]);
 
     return {
         data: {

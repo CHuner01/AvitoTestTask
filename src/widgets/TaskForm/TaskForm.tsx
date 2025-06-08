@@ -5,6 +5,7 @@ import {
     TextField,
     TextArea,
     IconButton,
+    Text,
 } from "@radix-ui/themes";
 import useTaskForm from "./useTaskForm.ts";
 import { FormProvider } from "react-hook-form";
@@ -57,8 +58,15 @@ const TaskForm = ({ isCreating, task }: TaskFormProps) => {
                                 : "Отредактируйте поля задачи"}
                         </Dialog.Description>
 
-                        <Flex direction="column" gap="1">
-                            <Label title="Название">
+                        <Flex direction="column">
+                            <Label
+                                title="Название"
+                                bottom={
+                                    state.form.formState.errors["title"]
+                                        ? ""
+                                        : "16px"
+                                }
+                            >
                                 <TextField.Root
                                     color={
                                         state.form.formState.errors["title"]
@@ -72,14 +80,59 @@ const TaskForm = ({ isCreating, task }: TaskFormProps) => {
                                     }
                                     {...state.form.register("title")}
                                 />
+                                {state.form.formState.errors["title"] && (
+                                    <Text size="1" color="red">
+                                        {
+                                            state.form.formState.errors["title"]
+                                                ?.message as string
+                                        }
+                                    </Text>
+                                )}
                             </Label>
-                            <Label title="Описание">
+
+                            <Label
+                                title="Описание"
+                                bottom={
+                                    state.form.formState.errors["description"]
+                                        ? ""
+                                        : "16px"
+                                }
+                            >
                                 <TextArea
-                                    placeholder="Reply to comment…"
+                                    color={
+                                        state.form.formState.errors[
+                                            "description"
+                                        ]
+                                            ? "red"
+                                            : undefined
+                                    }
+                                    variant={
+                                        state.form.formState.errors[
+                                            "description"
+                                        ]
+                                            ? "soft"
+                                            : undefined
+                                    }
                                     {...state.form.register("description")}
                                 />
+                                {state.form.formState.errors["description"] && (
+                                    <Text size="1" color="red">
+                                        {
+                                            state.form.formState.errors[
+                                                "description"
+                                            ]?.message as string
+                                        }
+                                    </Text>
+                                )}
                             </Label>
-                            <Label title="Проект">
+                            <Label
+                                title="Проект"
+                                bottom={
+                                    state.form.formState.errors["boardId"]
+                                        ? ""
+                                        : "16px"
+                                }
+                            >
                                 {data.boards && (
                                     <BoardSelect
                                         boards={data.boards}
@@ -89,24 +142,81 @@ const TaskForm = ({ isCreating, task }: TaskFormProps) => {
                                         }
                                     />
                                 )}
+                                {state.form.formState.errors["boardId"] && (
+                                    <Text size="1" color="red">
+                                        {
+                                            state.form.formState.errors[
+                                                "boardId"
+                                            ]?.message as string
+                                        }
+                                    </Text>
+                                )}
                             </Label>
-                            <Label title="Исполнитель">
+                            <Label
+                                title="Исполнитель"
+                                bottom={
+                                    state.form.formState.errors["assigneeId"]
+                                        ? ""
+                                        : "16px"
+                                }
+                            >
                                 {data.users && (
                                     <AssigneeSelect users={data.users} />
                                 )}
+                                {state.form.formState.errors["assigneeId"] && (
+                                    <Text size="1" color="red">
+                                        {
+                                            state.form.formState.errors[
+                                                "assigneeId"
+                                            ]?.message as string
+                                        }
+                                    </Text>
+                                )}
                             </Label>
-                            <Label title="Статус">
+                            <Label
+                                title="Статус"
+                                bottom={
+                                    state.form.formState.errors["status"]
+                                        ? ""
+                                        : "16px"
+                                }
+                            >
                                 <Select
                                     items={data.statuses}
                                     name="status"
                                     isDisabled={isCreating}
                                 />
+                                {state.form.formState.errors["status"] && (
+                                    <Text size="1" color="red">
+                                        {
+                                            state.form.formState.errors[
+                                                "status"
+                                            ]?.message as string
+                                        }
+                                    </Text>
+                                )}
                             </Label>
-                            <Label title="Приоритет">
+                            <Label
+                                title="Приоритет"
+                                bottom={
+                                    state.form.formState.errors["priority"]
+                                        ? ""
+                                        : "16px"
+                                }
+                            >
                                 <Select
                                     items={data.priorities}
                                     name="priority"
                                 />
+                                {state.form.formState.errors["priority"] && (
+                                    <Text size="1" color="red">
+                                        {
+                                            state.form.formState.errors[
+                                                "priority"
+                                            ]?.message as string
+                                        }
+                                    </Text>
+                                )}
                             </Label>
                         </Flex>
 

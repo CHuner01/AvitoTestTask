@@ -8,7 +8,7 @@ interface BoardSelectProps {
 }
 
 const BoardSelect = ({ boards, isDisabled }: BoardSelectProps) => {
-    const { control } = useFormContext();
+    const { control, formState } = useFormContext();
 
     return (
         <Controller
@@ -20,7 +20,13 @@ const BoardSelect = ({ boards, isDisabled }: BoardSelectProps) => {
                     onValueChange={(val) => field.onChange(Number(val))}
                     disabled={isDisabled}
                 >
-                    <RadixSelect.Trigger placeholder="Выбрать проект" />
+                    <RadixSelect.Trigger
+                        placeholder="Выбрать проект"
+                        color={formState.errors["boardId"] ? "red" : undefined}
+                        variant={
+                            formState.errors["boardId"] ? "soft" : undefined
+                        }
+                    />
                     <RadixSelect.Content position="popper">
                         {boards.map((board) => (
                             <RadixSelect.Item

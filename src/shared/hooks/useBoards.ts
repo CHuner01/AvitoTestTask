@@ -7,9 +7,10 @@ interface BoardListResponse {
     data: IBoard[];
 }
 
-const getBoards = async () => {
+const getBoards = async ({ signal }: { signal?: AbortSignal }) => {
     const response = await axios.get<BoardListResponse>(
         API_ENDPOINTS.GET_BOARDS,
+        { signal },
     );
     return response.data.data;
 };
@@ -17,6 +18,6 @@ const getBoards = async () => {
 export const useBoards = () => {
     return useQuery<IBoard[]>({
         queryKey: ["boards"],
-        queryFn: getBoards,
+        queryFn: ({ signal }) => getBoards({ signal }),
     });
 };

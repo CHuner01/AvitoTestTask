@@ -8,7 +8,7 @@ interface SelectProps {
 }
 
 const Select = ({ items, name, isDisabled }: SelectProps) => {
-    const { control } = useFormContext();
+    const { control, formState } = useFormContext();
 
     return (
         <Controller
@@ -20,7 +20,10 @@ const Select = ({ items, name, isDisabled }: SelectProps) => {
                     onValueChange={field.onChange}
                     disabled={isDisabled}
                 >
-                    <RadixSelect.Trigger />
+                    <RadixSelect.Trigger
+                        color={formState.errors[name] ? "red" : undefined}
+                        variant={formState.errors[name] ? "soft" : undefined}
+                    />
                     <RadixSelect.Content position="popper">
                         {items.map((item) => (
                             <RadixSelect.Item key={item} value={item}>

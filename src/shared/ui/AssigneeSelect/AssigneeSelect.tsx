@@ -3,7 +3,7 @@ import { Select as RadixSelect } from "@radix-ui/themes/components/index";
 import type { IUser } from "../../types.ts";
 
 const AssigneeSelect = ({ users }: { users: IUser[] }) => {
-    const { control } = useFormContext();
+    const { control, formState } = useFormContext();
 
     return (
         <Controller
@@ -14,7 +14,15 @@ const AssigneeSelect = ({ users }: { users: IUser[] }) => {
                     value={field.value ? String(field.value) : ""}
                     onValueChange={(val) => field.onChange(Number(val))}
                 >
-                    <RadixSelect.Trigger placeholder="Выбрать исполнителя" />
+                    <RadixSelect.Trigger
+                        placeholder="Выбрать исполнителя"
+                        color={
+                            formState.errors["assigneeId"] ? "red" : undefined
+                        }
+                        variant={
+                            formState.errors["assigneeId"] ? "soft" : undefined
+                        }
+                    />
                     <RadixSelect.Content position="popper">
                         {users.map((user) => (
                             <RadixSelect.Item
