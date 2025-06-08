@@ -2,8 +2,9 @@ import { Button, Flex, Separator } from "@radix-ui/themes";
 import styles from "./Navbar.module.scss";
 import { useNavigate } from "react-router-dom";
 import { ROUTES } from "../../shared/routes.ts";
-import TaskForm from "../TaskForm/TaskForm.tsx";
+import { TaskForm } from "../TaskForm";
 
+/** Шапка, в которой кнопки для переходов на страницы Задачи, Проекты и форма создания задачи */
 const Navbar = () => {
     const navigate = useNavigate();
 

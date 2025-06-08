@@ -7,6 +7,7 @@ interface BoardListResponse {
     data: IBoard[];
 }
 
+/** Запрос на получение всех проектов */
 const getBoards = async ({ signal }: { signal?: AbortSignal }) => {
     const response = await axios.get<BoardListResponse>(
         API_ENDPOINTS.GET_BOARDS,

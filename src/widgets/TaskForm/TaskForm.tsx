@@ -9,14 +9,14 @@ import {
 } from "@radix-ui/themes";
 import useTaskForm from "./useTaskForm.ts";
 import { FormProvider } from "react-hook-form";
-import BoardSelect from "../../shared/ui/BoardSelect/BoardSelect.tsx";
-import AssigneeSelect from "../../shared/ui/AssigneeSelect/AssigneeSelect.tsx";
-import Select from "../../shared/ui/Select/Select.tsx";
 import type { TaskFormProps } from "./types.ts";
-import Label from "../../shared/ui/Label/Label.tsx";
 import { generatePath, useNavigate } from "react-router-dom";
 import { ROUTES } from "../../shared/routes.ts";
 import { Pencil1Icon } from "@radix-ui/react-icons";
+import { Label } from "../../shared/ui/Label";
+import { BoardSelect } from "../../shared/ui/BoardSelect";
+import { AssigneeSelect } from "../../shared/ui/AssigneeSelect";
+import { Select } from "../../shared/ui/Select";
 
 const TaskForm = ({ isCreating, task }: TaskFormProps) => {
     const navigate = useNavigate();
@@ -99,6 +99,7 @@ const TaskForm = ({ isCreating, task }: TaskFormProps) => {
                                 }
                             >
                                 <TextArea
+                                    resize="vertical"
                                     color={
                                         state.form.formState.errors[
                                             "description"

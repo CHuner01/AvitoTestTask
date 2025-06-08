@@ -8,6 +8,7 @@ const initialState: searchInitialState = {
     search: "",
 };
 
+/** Стор, хранящий параметр search */
 const searchSlice = createSlice({
     name: "search",
     initialState,

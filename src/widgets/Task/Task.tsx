@@ -1,13 +1,16 @@
-import type { ITaskResponse } from "../../types.ts";
-import TaskForm from "../../../widgets/TaskForm/TaskForm.tsx";
+import type { ITaskResponse } from "../../shared/types.ts";
 import { Flex, Separator, Text, Tooltip } from "@radix-ui/themes";
 import styles from "./Task.module.scss";
+import { TaskForm } from "../TaskForm";
 
 interface TaskProps {
+    /** Данные задачи */
     task: ITaskResponse;
+    /** Расположение информации строкой или столбцом */
     direction?: "column" | "row";
 }
 
+/** Карточка задачи с краткой инфомарцией по задаче и формой изменения задачи */
 const Task = ({ task, direction = "row" }: TaskProps) => {
     return (
         <Flex

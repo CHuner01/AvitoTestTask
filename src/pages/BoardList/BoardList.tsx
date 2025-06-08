@@ -1,10 +1,10 @@
 import useBoardList from "./useBoardList.ts";
-import Navbar from "../../widgets/Navbar/Navbar.tsx";
 import styles from "./BoardList.module.scss";
 import { Flex } from "@radix-ui/themes";
-import BoardCard from "../../shared/ui/BoardCard/BoardCard.tsx";
-import ErrorPage from "../../widgets/ErrorPage/ErrorPage.tsx";
-import LoadingPage from "../../widgets/LoadingPage/LoadingPage.tsx";
+import { LoadingPage } from "../../widgets/LoadingPage";
+import { ErrorPage } from "../../widgets/ErrorPage";
+import { Navbar } from "../../widgets/Navbar";
+import { BoardCard } from "../../shared/ui/BoardCard";
 
 const BoardList = () => {
     const { data, state } = useBoardList();

@@ -1,12 +1,12 @@
 import useTaskList from "./useTaskList.ts";
-import Search from "../../widgets/Search/Search.tsx";
-import FiltersForm from "../../widgets/FiltersForm/FiltersForm.tsx";
-import Navbar from "../../widgets/Navbar/Navbar.tsx";
 import styles from "./TaskList.module.scss";
 import { Flex } from "@radix-ui/themes";
-import Task from "../../shared/ui/Task/Task.tsx";
-import LoadingPage from "../../widgets/LoadingPage/LoadingPage.tsx";
-import ErrorPage from "../../widgets/ErrorPage/ErrorPage.tsx";
+import { LoadingPage } from "../../widgets/LoadingPage";
+import { ErrorPage } from "../../widgets/ErrorPage";
+import { Navbar } from "../../widgets/Navbar";
+import { FiltersForm } from "../../widgets/FiltersForm";
+import { Search } from "../../widgets/Search";
+import { Task } from "../../widgets/Task";
 
 const TaskList = () => {
     const { data, state } = useTaskList();

@@ -8,6 +8,10 @@ interface useEditTaskMutationProps {
     taskId: number | undefined;
 }
 
+/** Запрос на изменение задачи
+ * @param taskId - id задачи для изменения
+ * @param onSuccessCallback - функция, которая выполнится в случае успепха запроса
+ *  */
 export const useEditTaskMutation = ({
     taskId,
     onSuccessCallback,

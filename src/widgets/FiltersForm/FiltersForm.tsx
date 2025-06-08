@@ -9,6 +9,7 @@ import {
 import useFiltersForm from "./useFiltersForm.ts";
 import { Controller, FormProvider } from "react-hook-form";
 
+/** Форма с фильтрами Статус и Проект */
 const FiltersForm = () => {
     const { data, state } = useFiltersForm();
 

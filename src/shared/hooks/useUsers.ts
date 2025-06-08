@@ -7,6 +7,7 @@ interface UserListResponse {
     data: IUser[];
 }
 
+/** Запрос на получение всех пользователей */
 const getUsers = async ({ signal }: { signal?: AbortSignal }) => {
     const response = await axios.get<UserListResponse>(
         API_ENDPOINTS.GET_USERS,

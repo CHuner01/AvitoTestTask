@@ -6,6 +6,7 @@ const initialState: IFilters = {
     boardId: [],
 };
 
+/** Стор, хранящий фильтры: status, boardId */
 const filtersSlice = createSlice({
     name: "filters",
     initialState,

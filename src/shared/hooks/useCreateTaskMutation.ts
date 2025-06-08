@@ -7,6 +7,8 @@ interface useCreateTaskMutation {
     onSuccessCallback?: () => void;
 }
 
+/** Запрос на создание новой задачи
+ * @param onSuccessCallback - функция, которая выполнится в случае успепха запроса */
 export const useCreateTaskMutation = ({
     onSuccessCallback,
 }: useCreateTaskMutation) => {

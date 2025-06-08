@@ -2,6 +2,7 @@ import { TextField } from "@radix-ui/themes";
 import { MagnifyingGlassIcon } from "@radix-ui/react-icons";
 import useSearch from "./useSearch.ts";
 
+/** Поле для ввода текста поиска */
 const Search = () => {
     const { searchText, setSearchText } = useSearch();
 

@@ -1,18 +1,21 @@
 import { z } from "zod";
 
+/** Типы статусов */
 export type TStatus = "Backlog" | "InProgress" | "Done";
+/** Типы приоритетов */
 export type TPriority = "Low" | "Medium" | "High";
 
 export const statuses = ["Backlog", "InProgress", "Done"];
 export const priorities = ["Low", "Medium", "High"];
 
+/** Интерфейс пользователя */
 export interface IUser {
     id: number;
     email: string;
     fullName: string;
     avatarUrl: string;
 }
-
+/** Zod схема для создания или редактирования задачи */
 export const taskRequestSchema = z.object({
     title: z
         .string()
@@ -29,9 +32,10 @@ export const taskRequestSchema = z.object({
     status: z.enum(["Backlog", "InProgress", "Done"]),
     priority: z.enum(["Low", "Medium", "High"]),
 });
-
+/** Тип для создания или редактирования задачи */
 export type TaskRequestType = z.infer<typeof taskRequestSchema>;
 
+/** Интерфейс задачи, полученной с сервера */
 export interface ITaskResponse {
     id: number;
     boardId: number;
@@ -43,13 +47,14 @@ export interface ITaskResponse {
     assignee: IUser;
 }
 
+/** Интерфейс проекта */
 export interface IBoard {
     id: number;
     name: string;
     description: string;
     taskCount: number;
 }
-
+/** Интерфейс параметров фильтров */
 export interface IFilters {
     status: TStatus[];
     boardId: number[];

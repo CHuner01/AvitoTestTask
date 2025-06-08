@@ -11,6 +11,7 @@ const FormDefaultValues: IFilters = {
     boardId: [],
 };
 
+/** Кастомный хук для формы, которая отслеживает выбранные параметры фильтров  */
 const useFiltersForm = () => {
     const form = useForm({
         defaultValues: FormDefaultValues,
@@ -19,6 +20,7 @@ const useFiltersForm = () => {
     const formValues: IFilters = watch();
 
     const dispatch = useAppDispatch();
+    /** При изменении фильтров, записываем их в стор */
     useEffect(() => {
         dispatch(setFilters(formValues));
     }, [formValues, dispatch]);
@@ -27,6 +29,7 @@ const useFiltersForm = () => {
 
     const queryClient = useQueryClient();
 
+    /**Прерывание запросов при размонтировании*/
     useEffect(() => {
         return () => {
             queryClient.cancelQueries({ queryKey: ["boards"] });

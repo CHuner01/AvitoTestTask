@@ -15,19 +15,24 @@ import { useEditTaskMutation } from "../../shared/hooks/useEditTaskMutation.ts";
 import { useParams } from "react-router-dom";
 import { useQueryClient } from "@tanstack/react-query";
 
+/** Ключ, под которым сохраняется чреновик в local storage */
 const LOCAL_STORAGE_KEY = "form-draft";
+/** Задержка перед сохранением черновика формы */
 const delay = 300;
 
+/** Кастомный хук для создания формы для создания или изменения задач  */
 const useTaskForm = ({ isCreating, task }: TaskFormProps) => {
     const [open, setOpen] = useState(false);
     const { id } = useParams<{ id: string }>();
     const queryClient = useQueryClient();
 
+    /** Переменная, показывающая, что форма находится на странице проекта */
     const onBoard = !!id;
     const draftFromStorage = isCreating
         ? JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY) || "null")
         : null;
 
+    /** Для значения по умолчанию берется черновик из local storage, если черновика нет, берется пустые поля  */
     const FormDefaultValues: TaskRequestType = draftFromStorage || {
         title: "",
         description: "",
@@ -37,6 +42,7 @@ const useTaskForm = ({ isCreating, task }: TaskFormProps) => {
         priority: "Low",
     };
 
+    /** Форма для создания или редактирования задач, которая использует zod схему для валидации полей */
     const form = useForm<TaskRequestType>({
         resolver: zodResolver(taskRequestSchema),
         mode: "onChange",
@@ -55,6 +61,7 @@ const useTaskForm = ({ isCreating, task }: TaskFormProps) => {
 
     const formValues: TaskRequestType = form.watch();
 
+    /** При изменении полей, после задержки, введенные поля запишутся в local storage */
     useEffect(() => {
         if (!isCreating) return;
 
@@ -68,6 +75,7 @@ const useTaskForm = ({ isCreating, task }: TaskFormProps) => {
         };
     }, [formValues, isCreating]);
 
+    /** При открытии формы, поля обнуляются к значениям по умолчанию */
     useEffect(() => {
         if (!isCreating && task) {
             form.reset({
@@ -90,6 +98,7 @@ const useTaskForm = ({ isCreating, task }: TaskFormProps) => {
                 queryKey: [onBoard ? "boardTasks" : "tasks"],
             });
             setOpen(false);
+            /** При успешном создании задачи, удаляем черновик */
             localStorage.removeItem(LOCAL_STORAGE_KEY);
         },
     });
@@ -111,6 +120,15 @@ const useTaskForm = ({ isCreating, task }: TaskFormProps) => {
     const { data: users } = useUsers();
     const { data: boards } = useBoards();
 
+    /**Прерывание запросов при размонтировании*/
+    useEffect(() => {
+        return () => {
+            queryClient.cancelQueries({ queryKey: ["boards"] });
+            queryClient.cancelQueries({ queryKey: ["users"] });
+        };
+    }, [queryClient]);
+
+    /** Переменная, показывающая состояние запроса */
     const isPending: boolean = isCreating
         ? createTaskMutation.isPending
         : editTaskMutation.isPending;
@@ -131,6 +149,7 @@ const useTaskForm = ({ isCreating, task }: TaskFormProps) => {
         },
         functions: {
             onSubmit,
+            /** Функция для удланеия черновика при нажатии на кнопку Отмена */
             cancelFunction: () => localStorage.removeItem(LOCAL_STORAGE_KEY),
         },
     };

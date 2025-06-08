@@ -1,12 +1,12 @@
-import TaskList from "../../pages/TaskList/TaskList.tsx";
-import BoardList from "../../pages/BoardList/BoardList.tsx";
 import {
     createBrowserRouter,
     RouterProvider,
     Navigate,
 } from "react-router-dom";
-import Board from "../../pages/Board/Board.tsx";
 import { ROUTES } from "../../shared/routes.ts";
+import { TaskList } from "../../pages/TaskList";
+import { BoardList } from "../../pages/BoardList";
+import { Board } from "../../pages/Board";
 
 const Router = () => {
     const routes = [

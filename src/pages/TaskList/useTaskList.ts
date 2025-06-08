@@ -9,7 +9,9 @@ interface TaskListResponse {
     data: ITaskResponse[];
 }
 
+/** Кастомный хук для получения всех задач с учетом параметров поиска и фильтров */
 const useTaskList = () => {
+    /** Запрос на получение всех задач */
     const getAllTasks = async ({ signal }: { signal?: AbortSignal }) => {
         const response = await axios.get<TaskListResponse>(
             API_ENDPOINTS.GET_TASKS,
@@ -29,6 +31,7 @@ const useTaskList = () => {
 
     const queryClient = useQueryClient();
 
+    /**Прерывание запросов при размонтировании*/
     useEffect(() => {
         return () => {
             queryClient.cancelQueries({ queryKey: ["tasks"] });
@@ -40,6 +43,7 @@ const useTaskList = () => {
 
     const isSetSearch = search.trim().length > 0;
 
+    /** Список задач с условием параметров поиска и фильтров */
     const filteredTasks = tasks?.filter(
         (task) =>
             (filters.status.length === 0 ||

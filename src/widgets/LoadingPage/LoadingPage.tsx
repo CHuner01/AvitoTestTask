@@ -1,7 +1,8 @@
-import Navbar from "../Navbar/Navbar.tsx";
 import { ClipLoader } from "react-spinners";
 import styles from "./LoadingPage.module.scss";
+import { Navbar } from "../Navbar";
 
+/** Страница, показывающая иконку загрузки */
 const LoadingPage = () => {
     return (
         <>

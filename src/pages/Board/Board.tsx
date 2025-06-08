@@ -1,10 +1,12 @@
 import useBoard from "./useBoard.ts";
-import Navbar from "../../widgets/Navbar/Navbar.tsx";
 import styles from "./Board.module.scss";
 import { Flex, Text } from "@radix-ui/themes";
-import Task from "../../shared/ui/Task/Task.tsx";
-import LoadingPage from "../../widgets/LoadingPage/LoadingPage.tsx";
-import ErrorPage from "../../widgets/ErrorPage/ErrorPage.tsx";
+import { LoadingPage } from "../../widgets/LoadingPage";
+import { ErrorPage } from "../../widgets/ErrorPage";
+import { Navbar } from "../../widgets/Navbar";
+import { Task } from "../../widgets/Task";
+
+/** Страница конкретного проекта по id */
 
 const Board = () => {
     const { data, state } = useBoard();
@@ -16,7 +18,7 @@ const Board = () => {
     if (state.isError) {
         return <ErrorPage />;
     }
-
+    /** Если проекта с таким id нет, показываем сообщение*/
     if (!data.board) {
         return (
             <>
