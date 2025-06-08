@@ -240,7 +240,11 @@ const TaskForm = ({ isCreating, task }: TaskFormProps) => {
                             </Flex>
                             <Flex gap="3">
                                 <Dialog.Close>
-                                    <Button type="button" variant="soft">
+                                    <Button
+                                        type="button"
+                                        variant="soft"
+                                        onClick={functions.cancelFunction}
+                                    >
                                         Отмена
                                     </Button>
                                 </Dialog.Close>

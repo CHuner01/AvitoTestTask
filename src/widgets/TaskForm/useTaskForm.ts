@@ -15,17 +15,23 @@ import { useEditTaskMutation } from "../../shared/hooks/useEditTaskMutation.ts";
 import { useParams } from "react-router-dom";
 import { useQueryClient } from "@tanstack/react-query";
 
+const LOCAL_STORAGE_KEY = "form-draft";
+const delay = 300;
+
 const useTaskForm = ({ isCreating, task }: TaskFormProps) => {
     const [open, setOpen] = useState(false);
     const { id } = useParams<{ id: string }>();
     const queryClient = useQueryClient();
 
     const onBoard = !!id;
+    const draftFromStorage = isCreating
+        ? JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY) || "null")
+        : null;
 
-    const FormDefaultValues: TaskRequestType = {
+    const FormDefaultValues: TaskRequestType = draftFromStorage || {
         title: "",
         description: "",
-        boardId: onBoard ? Number(id) : task?.boardId ? task?.boardId : 0,
+        boardId: onBoard ? Number(id) : (task?.boardId ?? 0),
         assigneeId: 0,
         status: "Backlog",
         priority: "Low",
@@ -46,6 +52,21 @@ const useTaskForm = ({ isCreating, task }: TaskFormProps) => {
                         : 0,
               },
     });
+
+    const formValues: TaskRequestType = form.watch();
+
+    useEffect(() => {
+        if (!isCreating) return;
+
+        const handler = setTimeout(() => {
+            console.log(formValues);
+            localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(formValues));
+        }, delay);
+
+        return () => {
+            clearTimeout(handler);
+        };
+    }, [formValues, isCreating]);
 
     useEffect(() => {
         if (!isCreating && task) {
@@ -69,6 +90,7 @@ const useTaskForm = ({ isCreating, task }: TaskFormProps) => {
                 queryKey: [onBoard ? "boardTasks" : "tasks"],
             });
             setOpen(false);
+            localStorage.removeItem(LOCAL_STORAGE_KEY);
         },
     });
     const editTaskMutation = useEditTaskMutation({
@@ -109,6 +131,7 @@ const useTaskForm = ({ isCreating, task }: TaskFormProps) => {
         },
         functions: {
             onSubmit,
+            cancelFunction: () => localStorage.removeItem(LOCAL_STORAGE_KEY),
         },
     };
 };
