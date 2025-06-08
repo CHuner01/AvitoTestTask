@@ -1,54 +1,37 @@
-# React + TypeScript + Vite
+# Тестовое задание для стажера Frontend в Авито
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Функционал приложения
 
-Currently, two official plugins are available:
+- Страница со всеми задачами, страница со всеми проектами, страница с задачами конкретного проекта
+- Страница со всеми задачами. На странице есть поиск по названию задачи или имени исполнителя. Задачи можно отфильтровать по статусу или проекту.
+- Страница со всеми проектами. С этой страницы можно перейти на конкретный проект.
+- Страница с задачами проекта. На странице задачи разделены по статусам Backlog, In Progress и Done
+- Форма создания или редактирования задач. При заполнении формы для создания задачи сохраняется черновик. Черновик удалится если создать задачу или нажать на кнопку "Отмена". При редактировании задачи на странице всех задач, в форме есть кнопка для перехода на страницу проекта задачи
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Используемый стек
 
-## Expanding the ESLint configuration
+- React - основной инструмент
+- TypeScript - используется для автокомплитов и отлавливания ошибок, свявзанных с типизацией в процессе разработки
+- Redux Toolkit - используется для глобального хранилища информации, которая необходима в разных местах приложения
+- TanStack Query - используется для удобного кеширования запросов на сервер
+- React Hook Form - используется для удобного хранения состояния формы 
+- Zod - используется для валидации формы
+- Radix UI - UI библиотека, в которой есть как примитивы, так и готовые компоненты
+- CSS Modules - используется для избегания конфликтов CSS классов
+- SCSS - используется для увеличения возможностей пр написании CSS кода
+- Vitest - используется для тестирования кода
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## Запуск приложения
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+Для подключения необходимых зависимостей
 ```
-
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
+npm install
+```
+Для сборки проекта
+```
+npm run build
+```
+Для запуска приложения
+```
+npm start
 ```
